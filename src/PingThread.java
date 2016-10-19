@@ -12,7 +12,7 @@ public class PingThread extends Thread {
 
 	public void run() {
 		//use localhost to experiment on a standalone computer
-		String hostname="localhost";    String message = "HELLO USING UDP!";
+		String hostname="localhost";    String message = Integer.toString(threadNum);
 		try {
 			// Create a datagram socket, look for the first available port
 			@SuppressWarnings("resource")
@@ -38,7 +38,14 @@ public class PingThread extends Thread {
 			packet.setPort(2000);
 			//send the packet
 			socket.send(packet);
-			System.out.println ("Packet sent at!" + new Date());
+			long sentTime = System.currentTimeMillis();
+			System.out.println ("Packet sent at " + sentTime);
+			@SuppressWarnings("resource")
+			DatagramSocket recieveSocket = new DatagramSocket(2001);
+			DatagramPacket receivePacket = new DatagramPacket( new byte[256], 256 );
+			recieveSocket.receive(receivePacket);
+			long receiveTime = System.currentTimeMillis();
+			System.out.println ("Packet received at " + receiveTime);
 
 			// Display packet information
 			System.out.println ("Sent by  : " + remote_addr.getHostAddress() );
