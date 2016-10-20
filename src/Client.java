@@ -7,7 +7,7 @@ public class Client {
 
 			Thread thr = new PingThread(i);
 			thr.start();
-			Thread.sleep(5);
+			thr.join();
 
 		}
 	}
