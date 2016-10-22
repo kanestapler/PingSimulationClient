@@ -7,6 +7,7 @@ public class Client {
 
 			Thread thr = new PingThread(i);
 			thr.start();
+			//Using join isn't required, but makes the pings come back in order.
 			thr.join();
 
 		}

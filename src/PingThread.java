@@ -7,6 +7,7 @@ public class PingThread extends Thread {
 
 	private int firstPort = 2000;
 	private int secondPort = 2001;
+	private final int timeout = 300;
 	
 	public PingThread(int val){
 		threadNum = val;
@@ -40,6 +41,8 @@ public class PingThread extends Thread {
 			@SuppressWarnings("resource")
 			DatagramSocket recieveSocket = new DatagramSocket(secondPort+threadNum);
 			DatagramPacket receivePacket = new DatagramPacket( new byte[256], 256 );
+			//set timeout to 300ms for recieve
+			recieveSocket.setSoTimeout(timeout);
 			recieveSocket.receive(receivePacket);
 			long receiveTime = System.currentTimeMillis();
 			long totalTime = receiveTime - sentTime;
